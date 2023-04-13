@@ -38,7 +38,7 @@
 ------------------------------------------------------------------
 > After creating all required tf files, we initiate terraform to download every necessary module and providers. Before doing that we can format all tf files to make them more readable using `terraform fmt`. 
 >
-> `terraform validate`: This command is used to validate the codes which are written. If there is any syntax mismatching, then it will throw an error to get this fixed, else, you'd get this ![success prompt](./snapshots/tf-val.png)
+> `terraform validate`: This command is used to validate the codes which are written. If there is any syntax mismatching, then it will throw an error to get this fixed, else, you'd get this success prompt ![success prompt](./snapshots/tf-val.png)
 >
 > `terraform init`: This command initializes the providers and/or modules mentioned in your script(s). Which means by running this cmd, terraform simply downloads all APIs relevant to your specific cloud provider and modules to ensure successful execution of further operations.
 
@@ -48,7 +48,7 @@
 > 
 > Before now, you must have configured your aws command line interface. If not, run `aws configure` and at the prompt enter your aws access_key_id, secret_access_key, default region and format (json or yaml).
 >
-> `terraform output public_ip >> host` : running this command in the terminal copies the public IP addresses of the EC2 instances we have created on AWS to a local file which we have named hosts. This file will serve as our host inventory file when we use Ansible to configure the servers (or EC2 instances) which we have created with terraform. You'll need to modify the resulting `hosts` file which comes in ![json format](./snapshots/host-in-json.png) to meet the standard of an ansible host inventory file. Here we have modified and renamed it [hosts](./hosts). It is worth mentioning that this command works because our [output.tf](./output.tf) file contains the code-block below:
+> `terraform output public_ip >> host` : running this command in the terminal copies the public IP addresses of the EC2 instances we have created on AWS to a local file which we have named hosts. This file will serve as our host inventory file when we use Ansible to configure the servers (or EC2 instances) which we have created with terraform. You'll need to modify the resulting `hosts` file which comes in json format ![json format](./snapshots/host-in-json.png) to meet the standard of an ansible host inventory file. Here we have modified and renamed it [hosts](./hosts). It is worth mentioning that this command works because our [output.tf](./output.tf) file contains the code-block below:
 > 
 > ```
 > output "public_ip" {
@@ -68,9 +68,9 @@
 > To grant ansible the permission to connect to your instances, before running the `ansible-playbook` command, ensure you give your pem key file the right file permissions: run `sudo chmod 0444 path/to/keyfile.pem`. 
 > The `0444` modification allows read only access for both user, group and others- hence your key file is protected, and can also be read by the hosts when we connect with ansible. 
 > You can view the ansible playbook [here](./playbook.yaml). 
-> After a successful ansible execution, you should have something similar to ![this](./snapshots/ansible.png).
+> After a successful ansible execution, you should have something similar to this ![snapshot](./snapshots/ansible.png).
 > 
-> Finally, paste the `alb_id` (the DNS of our Load Balancer from the terraform output on the terminal) on your browser, and refresh multiple times to view the ALB balancing the load across the three different ec2-instances. See snapshots ![here](./snapshots/ec2-1.png).
+> Finally, paste the `alb_id` (the DNS of our Load Balancer from the terraform output on the terminal) on your browser, and refresh multiple times to view the ALB balancing the load across the three different ec2-instances. See snapshot ![here](./snapshots/ec2-1.png).
 -------------------------------------------------------------------------------
 ## ACKNOWLEDGEMENT: 
 > - [AltSchool Africa](https://www.altschoolafrica.com)

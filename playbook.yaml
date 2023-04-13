@@ -1,0 +1,33 @@
+- name: configuring servers provisioned by terraform
+  hosts: all
+
+  tasks:
+  - name: installing httpd
+    package:
+        name: httpd
+        state: present
+
+  - name: installing php
+    package:
+        name: php
+        state: present
+
+  - name: starting httpd service
+    service:
+        name: httpd
+        state: started
+
+  - name: installing git
+    package:
+        name: git
+        state: present
+
+  - name: copy html file to remote server
+    copy:
+        src: ./index.php
+        dest: /var/www/html
+
+  - name: restarting httpd service
+    service:
+        name: httpd
+        state: started

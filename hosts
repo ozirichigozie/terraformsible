@@ -1,4 +1,4 @@
 [servers]
-Instance-0 ansible_host=54.164.45.190
-Instance-1 ansible_host=44.215.16.53
-Instance-2 ansible_host=54.88.92.234
+Instance-0 ansible_host=34.204.29.166
+Instance-1 ansible_host=54.209.203.206
+Instance-2 ansible_host=3.210.241.115

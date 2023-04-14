@@ -59,18 +59,23 @@
 -----------------------------------------------------------------------------
 ## ANSIBLE TIME!
 > - Write a simple [index.php file](./index.php) to dynamically display the hostname of our EC2 instances on the browser. This would help us demonstrate how our Elastic ALB balances the load on our different servers. You may choose to use an index.html if you prefer.
-> - Write the ansible [playbook](./playbook.yaml)
-> Copy the configuration in the [ansible.cfg](./ansible.cfg) file to your default `ansible.cfg` file which is located at the `/etc/ansible` directory.
+> 
+> - Write the ansible [playbook](./playbook.yaml).
+> 
+> In the [ansible.cfg](./ansible.cfg) file we state the location of our private key and host inventory files, state the name of our remote user and also grant escalated privileges to our user to grant ansible the permission to run privileged commands. This file overrides the default ansible.cfg file located in the `/etc/ansible` directory.
 > 
 > `ansible-playbook playbook.yaml -i hosts --key-file newkey.pem`
 > - the `-i` flag points our ansible command to the location of our host inventory file.
 > - the `--key-file` flag indicates the location of the unique pem key file with which our EC2 instances were spinned up. 
-> To grant ansible the permission to connect to your instances, before running the `ansible-playbook` command, ensure you give your pem key file the right file permissions: run `sudo chmod 0444 path/to/keyfile.pem`. 
-> The `0444` modification allows read only access for both user, group and others- hence your key file is protected, and can also be read by the hosts when we connect with ansible. 
+> However, since we have an ansible.cfg file, we do not need to use these flags. Simply run `ansible-playbook playbook.yaml`.
+> To grant ansible the permission to connect to your instances, before running the `ansible-playbook` command, run `sudo chmod 0444 path/to/keyfile.pem` to give your private key file the right modification. 
+> The `0444` modification allows read only access for both user, group and others- however, if this does not work, try the `0400` mode. 
 > You can view the ansible playbook [here](./playbook.yaml). 
 > After a successful ansible execution, you should have something similar to this ![snapshot](./snapshots/ansible.png).
 > 
 > Finally, paste the `alb_id` (the DNS of our Load Balancer from the terraform output on the terminal) on your browser, and refresh multiple times to view the ALB balancing the load across the three different ec2-instances. See snapshot ![here](./snapshots/ec2-1.png).
+>
+> Run `terraform destroy` to pull down the entire framework when it is no longer needed.
 -------------------------------------------------------------------------------
 ## ACKNOWLEDGEMENT: 
 > - [AltSchool Africa](https://www.altschoolafrica.com)
